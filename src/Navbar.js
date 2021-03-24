@@ -1,6 +1,6 @@
 import React from "react";
 
-function Navbar({ setWhichPage, username }) {
+function Navbar({ setWhichPage, username, setUser }) {
   return (
     <aside>
       <br></br>
@@ -17,7 +17,7 @@ function Navbar({ setWhichPage, username }) {
         Edit Profile
       </div>
       <br></br>
-      <div id="logout" onClick={(e) => setWhichPage(e.target.id)}>
+      <div id="logout" onClick={() => setUser({})}>
         Log Out
       </div>
     </aside>
