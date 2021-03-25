@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory, Link, Route } from "react-router-dom";
 
-function Login({ API, setUser }) {
+function Signup({ api, setUser }) {
   const [userInfo, setUserInfo] = useState({
     name: "",
     password: "",
@@ -17,7 +17,7 @@ function Login({ API, setUser }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch(`${API}/login`, {
+    fetch(`${api}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,13 +32,8 @@ function Login({ API, setUser }) {
         console.log("server not on, tonto");
       })
       .then((response) => {
-        if (response) {
-          setUser(response);
-          history.push("/home");
-        } else {
-          setUserInfo({ ...userInfo, password: "" });
-          alert("Invalid login - please try again");
-        }
+        setUser(response);
+        history.push("/home");
       });
   }
 
@@ -57,13 +52,10 @@ function Login({ API, setUser }) {
           value={userInfo.password}
           onChange={handleChange}
         ></input>
-        <button type="submit">Login</button>
+        <button type="submit">Signup!</button>
       </form>
-      <Link id="signup-button" className="button" to="/signup">
-        Don't have an account? Signup!
-      </Link>
     </>
   );
 }
 
-export default Login;
+export default Signup;

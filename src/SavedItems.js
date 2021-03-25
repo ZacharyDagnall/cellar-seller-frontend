@@ -15,11 +15,11 @@ function SavedItems({ api, user }) {
       .then((list) => {
         setStuff(list);
       });
-  }, [user]);
+  }, []);
 
   return (
     <div>
-      <Folders api={api} user={user} type={"savedItems"} setThings={setStuff} />
+      <Folders api={api} user={user} type={"saveditems"} setThings={setStuff} />
       <ItemsContainer things={stuff} />
     </div>
   );

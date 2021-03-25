@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
-function EditProfile({ user, setUser }) {
+function EditProfile({ user, setUser, api }) {
   const [userInfo, setUserInfo] = useState({
     name: user.name,
     password: user.password,
@@ -18,12 +19,38 @@ function EditProfile({ user, setUser }) {
   function handleSubmit(e) {
     e.preventDefault();
     //fetch to update credentials "PATCH"
+    fetch(`${api}/users/${user.id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((r) => r.json())
+      .then((responseUser) => setUser(responseUser));
     console.log("changed!!");
   }
 
   function deleteAccount() {
     //alert or something "are you sure??"
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      // Save it!
+      console.log("Account DELETED!");
+    } else {
+      // Do nothing!
+      console.log("Cool man welcome back");
+    }
     //fetch delete
+    fetch(`${api}/users/${user.id}`, {
+      method: "DELETE",
+    }).then((whatisthis) => {
+      setUser({});
+      // <>
+      //   {console.log(whatisthis)}
+      //   <Redirect to="/login" />;
+      // </>;
+    });
     //redirect to login
   }
 

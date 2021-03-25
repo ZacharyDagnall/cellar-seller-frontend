@@ -6,9 +6,10 @@ import Home from "./Home";
 import SavedItems from "./SavedItems";
 import EditProfile from "./EditProfile";
 import Login from "./Login";
+import Signup from "./Signup";
 
 function App() {
-  const API = "http://localhost:3001";
+  const API = "http://localhost:3000";
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function App() {
           <Switch>
             <Route exact path="/home">
               <section>
-                <Home user={user} />
+                <Home user={user} api={API} />
               </section>
             </Route>
             <Route exact path="/saved-items">
@@ -34,8 +35,11 @@ function App() {
             </Route>
             <Route exact path="/edit-profile">
               <section>
-                <EditProfile user={user} setUser={setUser} />
+                <EditProfile user={user} setUser={setUser} api={API} />
               </section>
+            </Route>
+            <Route exact path="/login">
+              <Login API={API} setUser={setUser} />
             </Route>
           </Switch>
         </main>
@@ -49,6 +53,10 @@ function App() {
 
       <Route exact path="/login">
         <Login API={API} setUser={setUser} />
+      </Route>
+
+      <Route path="/signup">
+        <Signup api={API} setUser={setUser} />
       </Route>
     </>
   );

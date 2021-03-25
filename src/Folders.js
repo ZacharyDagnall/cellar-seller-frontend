@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from "react";
 
 function Folders({ setThings, type, user, api }) {
-  // const [folders, setFolders] = useState([]);
-  let folders = [];
-  //useEffect --> fetch using type="trackedSearches" or type="savedItems", []
+  const [folders, setFolders] = useState([]);
+
   useEffect(() => {
-    console.log("in folders now", user);
-    // fetch(`${api}/users/${user.id}/${type}`)
-    //   .then((r) => r.json())
-    //   .then((list) => {
-    //     // setFolders(list);
-    //     folders = list;
-    //   });
-  }, [user]);
+    fetch(`${api}/users/${user.id}/${type}`)
+      .then((r) => r.json())
+      .then((list) => setFolders(list));
+  }, []);
 
   function handleClick(e) {
-    let id = parseInt(e.target.dataset.id);
-    console.log(id);
+    let folder_id = parseInt(e.target.dataset.id);
+    console.log(folder_id);
 
-    //fetch now to backend using ID
-    //with the result -->
-    // setThings([]);
+    fetch(`${api}/folders/${folder_id}/items`)
+      .then((r) => r.json())
+      .then((list) => setThings(list));
   }
 
   return (
     <div>
       {type === "trackedSearches" ? "Tracked Searches: " : "Folders: "}
       {folders.map((f) => {
+        console.log("is this a folder or what", f);
         return (
           <span key={f.id} data-id={f.id} onClick={handleClick}>
             {" "}
