@@ -1,23 +1,40 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-function Navbar({ setWhichPage, username, setUser }) {
+function Navbar({ username, setUser }) {
   return (
     <aside>
       <br></br>
       <h3>Welcome {username} !</h3>
-      <div id="home" onClick={(e) => setWhichPage(e.target.id)}>
+
+      <NavLink to="/home" className="button">
         Home
-      </div>
+      </NavLink>
       <br></br>
-      <div id="saved-items" onClick={(e) => setWhichPage(e.target.id)}>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+      <NavLink to="/saved-items" className="button">
         Saved Items
-      </div>
+      </NavLink>
       <br></br>
-      <div id="edit-profile" onClick={(e) => setWhichPage(e.target.id)}>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+
+      <NavLink to="/edit-profile" className="button">
         Edit Profile
-      </div>
+      </NavLink>
       <br></br>
-      <div id="logout" onClick={() => setUser({})}>
+      <br></br>
+      <br></br>
+
+      <br></br>
+      <br></br>
+      <div id="logout" onClick={() => setUser({})} className="button">
         Log Out
       </div>
     </aside>

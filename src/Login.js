@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function Login({ API, setUser }) {
   const [userInfo, setUserInfo] = useState({
     name: "",
-    password: ""
+    password: "",
   });
-
-  console.log(userInfo);
+  const history = useHistory();
 
   function handleChange(e) {
     let key = e.target.name;
@@ -18,23 +18,28 @@ function Login({ API, setUser }) {
   function handleSubmit(e) {
     e.preventDefault();
     fetch(`${API}/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type':'application/json',
-            Accept: 'application/json'
-        },
-        body:JSON.stringify(userInfo)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(userInfo),
     })
-        .then(r => r.json())
-        .then(response => {
-            if(response) {
-                console.log(response)
-                setUser(response)
-            } else {
-                setUserInfo({...userInfo, password:""})
-                alert("Invalid login - please try again")
-            }
-        })
+      .then((r) => {
+        if (r.ok) {
+          return r.json();
+        }
+        console.log("server not on, tonto");
+      })
+      .then((response) => {
+        if (response) {
+          setUser(response);
+          history.push("/home");
+        } else {
+          setUserInfo({ ...userInfo, password: "" });
+          alert("Invalid login - please try again");
+        }
+      });
   }
 
   return (

@@ -1,3 +1,23 @@
+:root {
+  --turquoise: #00efe1;
+  --mid-turquoise: #14d5c9;
+  --dark-turquoise: #00333f;
+  --black: #030416;
+  --white: #fff;
+  --grey: #d6e2e7;
+  --dark-grey: #7f8a8e;
+  --yellow: #f9c51a;
+  --orange: #ff5c00;
+  --fuschia: #e80352;
+  --blue: #338fff;
+  --blue-dark: #145cb3;
+  --purple: #cda2ff;
+  --green: #00ef7c;
+  --color: var(--white);
+  --background: var(--black);
+  --primary: var(--turquoise);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -53,4 +73,49 @@ section {
   grid-area: content;
   padding: 2rem;
   background-color: rgb(255, 237, 194);
+}
+
+.button,
+button {
+  padding: 0.75rem;
+  border: none;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  color: var(--primary);
+  background-color: var(--background);
+  border: 2px solid var(--dark-turquoise);
+  transition: background-color 0.2s;
+  line-height: 1;
+}
+
+.button.active,
+.button:hover,
+button.active,
+button:focus,
+button:hover {
+  outline: none;
+  color: var(--white);
+  background-color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  color: var(--dark-grey);
+  background-color: var(--grey);
+}
+
+button.blue {
+  border: 2px solid var(--blue-dark);
+  color: var(--blue);
+}
+
+button.blue.active,
+button.blue:focus,
+button.blue:hover {
+  color: var(--white);
+  background-color: var(--blue);
+  border: 2px solid var(--blue);
 }
