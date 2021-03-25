@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "./Home";
@@ -10,6 +10,10 @@ import Login from "./Login";
 function App() {
   const API = "http://localhost:3001";
   const [user, setUser] = useState({});
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <>
@@ -25,7 +29,7 @@ function App() {
             </Route>
             <Route exact path="/saved-items">
               <section>
-                <SavedItems user={user} />
+                <SavedItems user={user} api={API} />
               </section>
             </Route>
             <Route exact path="/edit-profile">

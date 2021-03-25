@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-function Folders({ setThings, type }) {
+function Folders({ setThings, type, user, api }) {
+  // const [folders, setFolders] = useState([]);
+  let folders = [];
   //useEffect --> fetch using type="trackedSearches" or type="savedItems", []
-  const folders = [
-    //these are folder objects
-    { name: "number 1", id: 3 },
-    { name: "number 2", id: 6 },
-    { name: "number 3", id: 7 },
-  ];
+  useEffect(() => {
+    console.log("in folders now", user);
+    // fetch(`${api}/users/${user.id}/${type}`)
+    //   .then((r) => r.json())
+    //   .then((list) => {
+    //     // setFolders(list);
+    //     folders = list;
+    //   });
+  }, [user]);
 
   function handleClick(e) {
     let id = parseInt(e.target.dataset.id);
+    console.log(id);
 
     //fetch now to backend using ID
     //with the result -->
