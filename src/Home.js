@@ -3,21 +3,25 @@ import Search from "./Search";
 import Folders from "./Folders";
 import ItemsContainer from "./ItemsContainer";
 
-function Home({ user, api }) {
-  const [results, setResults] = useState([
-    { name: 1, price: 0 },
-    { name: 2, price: 50 },
-    { name: 3, price: 3000 },
-  ]);
+function Home({ user, api, folders, setFolders }) {
+  const [results, setResults] = useState([]);
 
   return (
     <div>
-      <Search setResults={setResults} />
+      <Search
+        setResults={setResults}
+        api={api}
+        results={results}
+        user={user}
+        setFolders={setFolders}
+      />
       <Folders
         type={"trackedsearches"}
         setThings={setResults}
         user={user}
         api={api}
+        folders={folders}
+        setFolders={setFolders}
       />
       <ItemsContainer things={results} />
     </div>

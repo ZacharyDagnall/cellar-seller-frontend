@@ -34,7 +34,7 @@ function Navbar({ username, setUser }) {
 
       <br></br>
       <br></br>
-      <div id="logout" onClick={() => setUser({})} className="button">
+      <div id="logout" onClick={() => setUser(null)} className="button">
         Log Out
       </div>
     </aside>

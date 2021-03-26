@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Folders from "./Folders";
 import ItemsContainer from "./ItemsContainer";
 
-function SavedItems({ api, user }) {
+function SavedItems({ api, user, folders, setFolders }) {
   const [stuff, setStuff] = useState([]);
   const [currentFolder, setCurrentFolder] = useState("main");
   console.log("top of SI", user);
@@ -19,7 +19,14 @@ function SavedItems({ api, user }) {
 
   return (
     <div>
-      <Folders api={api} user={user} type={"saveditems"} setThings={setStuff} />
+      <Folders
+        api={api}
+        user={user}
+        type={"saveditems"}
+        setThings={setStuff}
+        folders={folders}
+        setFolders={setFolders}
+      />
       <ItemsContainer things={stuff} />
     </div>
   );

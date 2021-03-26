@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function Folders({ setThings, type, user, api }) {
-  const [folders, setFolders] = useState([]);
+function Folders({ setThings, type, user, api, folders, setFolders }) {
+  // const [folders, setFolders] = useState([]);
 
+  // ******
   useEffect(() => {
     fetch(`${api}/users/${user.id}/${type}`)
       .then((r) => r.json())
@@ -20,7 +21,7 @@ function Folders({ setThings, type, user, api }) {
 
   return (
     <div>
-      {type === "trackedSearches" ? "Tracked Searches: " : "Folders: "}
+      {type === "trackedsearches" ? "Tracked Searches: " : "Folders: "}
       {folders.map((f) => {
         console.log("is this a folder or what", f);
         return (

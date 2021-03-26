@@ -1,26 +1,49 @@
 import React, { useState } from "react";
+import Folders from "./Folders";
 
-function Search({ setResults }) {
+function Search({ results, setResults, api, user, setFolders }) {
   const [search, setSearch] = useState("");
+  const [submittedSearch, setSubmittedSearch] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    // fetch to the actual websites (using the Search state) (via backend)
-    //with the results -->
-    //setResults()
-    console.log("well this one works");
-    setSearch("");
+    fetch(`${api}/search/${search}`)
+      .then((r) => r.json())
+      .then((itemList) => {
+        setSubmittedSearch(search);
+        setResults(itemList);
+      });
+  }
+
+  function handleTrack(e) {
+    fetch(`${api}/users/${user.id}/trackedsearches`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({ name: submittedSearch, items: results }),
+    })
+      .then((r) => r.json())
+      .then((newFolder) => setFolders((folders) => [...folders, newFolder]));
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="search"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      ></input>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="search"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></input>
+      </form>
+      {results.length != 0 ? (
+        <button className="button" onClick={handleTrack}>
+          Save this search!
+        </button>
+      ) : null}
+    </>
   );
 }
 

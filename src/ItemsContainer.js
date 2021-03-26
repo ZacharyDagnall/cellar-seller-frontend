@@ -4,8 +4,8 @@ import Item from "./Item";
 function ItemsContainer({ things }) {
   return (
     <div>
-      {things.map((thing, i) => {
-        return <Item key={i} thing={thing} />;
+      {things.map((thing) => {
+        return <Item key={thing.id} thing={thing} />;
       })}
     </div>
   );
