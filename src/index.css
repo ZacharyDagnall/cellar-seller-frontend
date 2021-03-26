@@ -77,7 +77,8 @@ section {
 
 .button,
 button {
-  padding: 0.75rem;
+  padding: 0.5rem;
+  margin: 10px 10px 10px 10px;
   border: none;
   font: inherit;
   font-weight: 600;
@@ -87,7 +88,7 @@ button {
   background-color: var(--background);
   border: 2px solid var(--dark-turquoise);
   transition: background-color 0.2s;
-  line-height: 1;
+  line-height: 2.5;
 }
 
 .button.active,

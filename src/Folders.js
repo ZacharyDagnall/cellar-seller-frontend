@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
-function Folders({ setThings, type, user, api, folders, setFolders }) {
-  // const [folders, setFolders] = useState([]);
-
-  // ******
+function Folders({
+  setThings,
+  type,
+  user,
+  api,
+  folders,
+  setFolders,
+  grabMain = () => {
+    return [];
+  },
+}) {
   useEffect(() => {
     fetch(`${api}/users/${user.id}/${type}`)
       .then((r) => r.json())
@@ -12,22 +19,37 @@ function Folders({ setThings, type, user, api, folders, setFolders }) {
 
   function handleClick(e) {
     let folder_id = parseInt(e.target.dataset.id);
-    console.log(folder_id);
 
     fetch(`${api}/folders/${folder_id}/items`)
       .then((r) => r.json())
       .then((list) => setThings(list));
   }
 
+  function handleDeleteFolder(e) {
+    let folder_id = parseInt(e.target.dataset.id);
+    fetch(`${api}/folders/${folder_id}`, {
+      method: "DELETE",
+    }).then(() => {
+      setFolders(folders.filter((f) => f.id !== folder_id));
+      type === "trackedsearches" ? setThings([]) : grabMain();
+    });
+  }
+
   return (
     <div>
       {type === "trackedsearches" ? "Tracked Searches: " : "Folders: "}
       {folders.map((f) => {
-        console.log("is this a folder or what", f);
         return (
-          <span key={f.id} data-id={f.id} onClick={handleClick}>
-            {" "}
-            {f.name}{" "}
+          <span key={f.id}>
+            <span className="button" data-id={f.id} onClick={handleClick}>
+              {" "}
+              {f.name}
+            </span>
+            {f.name !== "main" ? (
+              <button data-id={f.id} onClick={handleDeleteFolder} role="img">
+                ❌
+              </button>
+            ) : null}
           </span>
         );
       })}

@@ -23,7 +23,7 @@ function Home({ user, api, folders, setFolders }) {
         folders={folders}
         setFolders={setFolders}
       />
-      <ItemsContainer things={results} />
+      <ItemsContainer api={api} type={"trackedsearches"} things={results} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import SavedItems from "./SavedItems";
@@ -21,7 +21,6 @@ function App() {
     <>
       {user ? (
         <main className="App">
-          {console.log(Object.keys(user).length)}
           <Navbar username={user.name} setUser={setUser} />
           <Switch>
             <Route exact path="/home">

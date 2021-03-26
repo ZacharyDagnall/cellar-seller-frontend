@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Folders from "./Folders";
 
 function Search({ results, setResults, api, user, setFolders }) {
   const [search, setSearch] = useState("");
@@ -16,6 +15,7 @@ function Search({ results, setResults, api, user, setFolders }) {
   }
 
   function handleTrack(e) {
+    console.log("results???", results);
     fetch(`${api}/users/${user.id}/trackedsearches`, {
       method: "POST",
       headers: {
@@ -38,7 +38,7 @@ function Search({ results, setResults, api, user, setFolders }) {
           onChange={(e) => setSearch(e.target.value)}
         ></input>
       </form>
-      {results.length != 0 ? (
+      {results.length !== 0 ? (
         <button className="button" onClick={handleTrack}>
           Save this search!
         </button>

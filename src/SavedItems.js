@@ -4,17 +4,18 @@ import ItemsContainer from "./ItemsContainer";
 
 function SavedItems({ api, user, folders, setFolders }) {
   const [stuff, setStuff] = useState([]);
-  const [currentFolder, setCurrentFolder] = useState("main");
-  console.log("top of SI", user);
 
-  //useEffect to fetch list of saved items --> from "main" folder, []
-  useEffect(() => {
-    console.log("in SI now", user);
-    fetch(`${api}/users/${user.id}/${currentFolder}`)
+  function grabMain() {
+    fetch(`${api}/users/${user.id}/main`)
       .then((r) => r.json())
       .then((list) => {
         setStuff(list);
       });
+  }
+
+  //useEffect to fetch list of saved items --> from "main" folder, []
+  useEffect(() => {
+    grabMain();
   }, []);
 
   return (
@@ -26,8 +27,14 @@ function SavedItems({ api, user, folders, setFolders }) {
         setThings={setStuff}
         folders={folders}
         setFolders={setFolders}
+        grabMain={grabMain}
       />
-      <ItemsContainer things={stuff} />
+      <ItemsContainer
+        api={api}
+        setThings={setStuff}
+        type={"saveditems"}
+        things={stuff}
+      />
     </div>
   );
 }

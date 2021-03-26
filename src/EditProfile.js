@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 
 function EditProfile({ user, setUser, api }) {
   const [userInfo, setUserInfo] = useState({
