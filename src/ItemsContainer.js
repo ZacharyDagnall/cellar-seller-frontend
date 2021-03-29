@@ -5,6 +5,7 @@ function ItemsContainer({
   things,
   api,
   type,
+  user,
   setThings = () => {
     return [];
   },
@@ -19,6 +20,7 @@ function ItemsContainer({
             type={type}
             setThings={setThings}
             api={api}
+            user={user}
           />
         );
       })}

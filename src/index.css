@@ -120,3 +120,7 @@ button.blue:hover {
   background-color: var(--blue);
   border: 2px solid var(--blue);
 }
+
+.hidden{
+  display:none;
+}

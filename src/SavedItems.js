@@ -34,6 +34,7 @@ function SavedItems({ api, user, folders, setFolders }) {
         setThings={setStuff}
         type={"saveditems"}
         things={stuff}
+        user={user}
       />
     </div>
   );
