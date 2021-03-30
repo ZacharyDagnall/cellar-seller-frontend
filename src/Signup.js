@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 function Signup({ api, setUser }) {
+  const [errors, setErrors] = useState([]);
   const [userInfo, setUserInfo] = useState({
     name: "",
     password: "",
@@ -26,15 +27,19 @@ function Signup({ api, setUser }) {
       body: JSON.stringify(userInfo),
     })
       .then((r) => {
-        if (r.ok) {
-          return r.json();
-        }
-        console.log("server not on, tonto");
+        return r.json().then((data) => {
+          if (r.ok) {
+            return data;
+          } else {
+            throw data;
+          }
+        });
       })
       .then((response) => {
         setUser(response);
         history.push("/home");
-      });
+      })
+      .catch((errors) => setErrors(errors));
   }
 
   return (
@@ -54,6 +59,13 @@ function Signup({ api, setUser }) {
         ></input>
         <button type="submit">Signup!</button>
       </form>
+      {errors.length !== 0 ? (
+        <>
+          {errors.map((er, i) => (
+            <div key={i}>{er}</div>
+          ))}
+        </>
+      ) : null}
     </>
   );
 }

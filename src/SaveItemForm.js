@@ -6,6 +6,7 @@ function SaveItemForm({ thing, api, user }) {
   const [folderId, setFolderId] = useState(null);
   const [menuFolders, setMenuFolders] = useState([]);
   const [showNewFolderInput, setShowNewFolderInput] = useState(false);
+  const [newFolderName, setNewFolderName] = useState("");
 
   useEffect(() => {
     if (folderId === "newfolder") {
@@ -29,16 +30,33 @@ function SaveItemForm({ thing, api, user }) {
     console.log(event.target.value);
     event.preventDefault();
     console.log("u saved");
-    fetch(`${api}/items`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ ...thing, folder_id: folderId }),
-    })
-      .then((r) => r.json())
-      .then((item) => alert(`${item.name} saved!`));
+    if (!showNewFolderInput) {
+      fetch(`${api}/items`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ ...thing, folder_id: folderId }),
+      })
+        .then((r) => r.json())
+        .then((item) => alert(`${item.name} saved!`));
+    } else {
+      fetch(`${api}/users/${user.id}/saveitemnewfolder`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ item: thing, name: newFolderName }),
+      })
+        .then((r) => r.json())
+        .then((folder) =>
+          alert(
+            `New folder ${folder.name} created with ${thing.name} saved inside!`
+          )
+        );
+    }
     toggleForm(false);
   };
 
@@ -69,6 +87,8 @@ function SaveItemForm({ thing, api, user }) {
           name="New-Folder-Name"
           className={showNewFolderInput ? "" : "hidden"}
           placeholder="New Folder Name"
+          value={newFolderName}
+          onChange={(e) => setNewFolderName(e.target.value)}
         ></input>
         <button type="submit">Save to Selected Folder</button>
       </form>

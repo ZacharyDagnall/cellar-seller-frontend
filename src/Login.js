@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
 function Login({ API, setUser }) {
+  const [errors, setErrors] = useState([]);
   const [userInfo, setUserInfo] = useState({
     name: "",
     password: "",
@@ -26,19 +27,22 @@ function Login({ API, setUser }) {
       body: JSON.stringify(userInfo),
     })
       .then((r) => {
-        if (r.ok) {
-          return r.json();
-        }
-        console.log("server not on, tonto");
+        return r.json().then((data) => {
+          if (r.ok) {
+            return data;
+          } else {
+            throw data;
+          }
+        });
       })
       .then((response) => {
-        if (response) {
-          setUser(response);
-          history.push("/home");
-        } else {
-          setUserInfo({ ...userInfo, password: "" });
-          alert("Invalid login - please try again");
-        }
+        setUser(response);
+        history.push("/home");
+      })
+      .catch((errors) => {
+        console.log("errors console log", errors);
+        setUserInfo({ ...userInfo, password: "" });
+        setErrors(errors);
       });
   }
 
@@ -59,6 +63,13 @@ function Login({ API, setUser }) {
         ></input>
         <button type="submit">Login</button>
       </form>
+      {errors.length !== 0 ? (
+        <>
+          {errors.map((er, i) => (
+            <div key={i}>{er}</div>
+          ))}
+        </>
+      ) : null}
       <Link id="signup-button" className="button" to="/signup">
         Don't have an account? Signup!
       </Link>

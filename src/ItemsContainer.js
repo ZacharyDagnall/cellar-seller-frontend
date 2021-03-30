@@ -1,5 +1,6 @@
 import React from "react";
 import Item from "./Item";
+import Stats from "./Stats";
 
 function ItemsContainer({
   things,
@@ -12,6 +13,7 @@ function ItemsContainer({
 }) {
   return (
     <div>
+      {things.length !== 0 ? <Stats things={things} /> : null}
       {things.map((thing) => {
         return (
           <Item
