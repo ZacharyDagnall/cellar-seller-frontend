@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Item from "./Item";
 import Stats from "./Stats";
+import CardDeck from "react-bootstrap/CardDeck";
 
 function ItemsContainer({
   things,
@@ -25,7 +26,7 @@ function ItemsContainer({
   });
 
   return (
-    <div>
+    <>
       {sortedThings.length !== 0 ? (
         <>
           <Stats things={sortedThings} />
@@ -36,20 +37,28 @@ function ItemsContainer({
           </select>
         </>
       ) : null}
-
-      {sortedThings.map((thing) => {
-        return (
-          <Item
-            key={thing.id}
-            thing={thing}
-            type={type}
-            setThings={setThings}
-            api={api}
-            user={user}
-          />
-        );
-      })}
-    </div>
+      <CardDeck
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          width: "100em",
+        }}
+      >
+        {sortedThings.map((thing) => {
+          return (
+            <Item
+              key={thing.id}
+              thing={thing}
+              type={type}
+              setThings={setThings}
+              api={api}
+              user={user}
+            />
+          );
+        })}
+      </CardDeck>
+    </>
   );
 }
 

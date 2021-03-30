@@ -121,6 +121,10 @@ button.blue:hover {
   border: 2px solid var(--blue);
 }
 
-.hidden{
-  display:none;
+.hidden {
+  display: none;
+}
+
+card-deck {
+  grid-template-columns: 70px 70px 70px;
 }
