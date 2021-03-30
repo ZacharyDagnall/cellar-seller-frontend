@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Navbar from "./Navbar";
 import Home from "./Home";
 import SavedItems from "./SavedItems";
@@ -12,10 +12,30 @@ function App() {
   const API = "http://localhost:3000";
   const [user, setUser] = useState(null);
   const [folders, setFolders] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    if (!localStorage.getItem("token")) {
+      history.push("/login");
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch(`${API}/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((r) => r.json())
+        .then((user) => {
+          setUser(user);
+
+          console.log(user);
+        });
+    }
+  }, []);
 
   return (
     <>
@@ -48,18 +68,17 @@ function App() {
                 <EditProfile user={user} setUser={setUser} api={API} />
               </section>
             </Route>
-            <Route exact path="/login">
-              <Login API={API} setUser={setUser} />
+            <Route exact path="/*">
+              <Redirect
+                to={{
+                  pathname: "/home",
+                }}
+              />
             </Route>
           </Switch>
         </main>
       ) : (
         <>
-          <Redirect
-            to={{
-              pathname: "/login",
-            }}
-          />
           <Switch>
             <Route exact path="/login">
               <Login API={API} setUser={setUser} />

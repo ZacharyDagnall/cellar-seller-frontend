@@ -36,7 +36,9 @@ function Signup({ api, setUser }) {
         });
       })
       .then((response) => {
-        setUser(response);
+        const { user, token } = response;
+        localStorage.setItem("token", token);
+        setUser(user);
         history.push("/home");
       })
       .catch((errors) => setErrors(errors));
@@ -52,7 +54,7 @@ function Signup({ api, setUser }) {
           onChange={handleChange}
         ></input>
         <input
-          type="text"
+          type="password"
           name="password"
           value={userInfo.password}
           onChange={handleChange}
@@ -66,6 +68,7 @@ function Signup({ api, setUser }) {
           ))}
         </>
       ) : null}
+      <button onClick={() => history.push("/login")}>Back to login...</button>
     </>
   );
 }

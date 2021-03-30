@@ -36,7 +36,9 @@ function Login({ API, setUser }) {
         });
       })
       .then((response) => {
-        setUser(response);
+        const { user, token } = response;
+        localStorage.setItem("token", token);
+        setUser(user);
         history.push("/home");
       })
       .catch((errors) => {
@@ -56,7 +58,7 @@ function Login({ API, setUser }) {
           onChange={handleChange}
         ></input>
         <input
-          type="text"
+          type="password"
           name="password"
           value={userInfo.password}
           onChange={handleChange}

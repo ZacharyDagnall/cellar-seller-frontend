@@ -20,7 +20,6 @@ function SaveItemForm({ thing, api, user }) {
     fetch(`${api}/users/${user.id}/saveditems`)
       .then((r) => r.json())
       .then((savedFolders) => {
-        console.log(savedFolders);
         setMenuFolders(savedFolders);
         setFolderId(savedFolders[0].id);
       });

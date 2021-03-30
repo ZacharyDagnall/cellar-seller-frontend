@@ -1,11 +1,19 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 function Navbar({ username, setUser }) {
+  const history = useHistory();
+
+  function logout() {
+    setUser(null);
+    localStorage.removeItem("token");
+    history.push("/login");
+  }
+
   return (
     <aside>
       <br></br>
-      <h3>Welcome {username} !</h3>
+      <h3>Welcome {username}!</h3>
 
       <NavLink to="/home" className="button">
         Home
@@ -34,7 +42,7 @@ function Navbar({ username, setUser }) {
 
       <br></br>
       <br></br>
-      <div id="logout" onClick={() => setUser(null)} className="button">
+      <div id="logout" onClick={logout} className="button">
         Log Out
       </div>
     </aside>
