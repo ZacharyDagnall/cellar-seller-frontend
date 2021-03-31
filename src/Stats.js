@@ -4,7 +4,7 @@ const Stats = ({ things }) => {
   const prices = things.map((t) => t.price);
 
   return (
-    <table>
+    <table className="stat-table">
       <tbody>
         <tr>
           <th>Number of Items</th>

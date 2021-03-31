@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import styled from "styled-components"
+
 
 function Navbar({ username, setUser }) {
   const history = useHistory();
@@ -10,41 +12,47 @@ function Navbar({ username, setUser }) {
     history.push("/login");
   }
 
+  const NewNavLink = styled(NavLink)`
+  && {width:100em}`
+
   return (
     <aside>
       <br></br>
       <h3>Welcome {username}!</h3>
-
-      <NavLink to="/home" className="button">
+      
+      <NewNavLink to="/home" className="navlink">
         Home
-      </NavLink>
+      </NewNavLink>
       <br></br>
       <br></br>
       <br></br>
       <br></br>
       <br></br>
 
-      <NavLink to="/saved-items" className="button">
+      <NewNavLink to="/saved-items" className="navlink">
         Saved Items
-      </NavLink>
+      </NewNavLink>
       <br></br>
       <br></br>
       <br></br>
       <br></br>
       <br></br>
 
-      <NavLink to="/edit-profile" className="button">
+      <NewNavLink to="/edit-profile" className="navlink">
         Edit Profile
-      </NavLink>
+      </NewNavLink>
+      <br></br>
+      <br></br>
       <br></br>
       <br></br>
       <br></br>
 
-      <br></br>
-      <br></br>
-      <div id="logout" onClick={logout} className="button">
+      {/* <span className="navlink" onClick={logout}>
         Log Out
-      </div>
+      </span> */}
+      <NewNavLink to="/login" className="navlink" onClick={logout}>
+        Logout
+      </NewNavLink>
     </aside>
   );
 }

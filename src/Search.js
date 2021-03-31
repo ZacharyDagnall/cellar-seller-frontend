@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function Search({ results, setResults, api, user, setFolders }) {
+function Search({ results, setResults, api, user, setFolders, isSavedSearch, setIsSavedSearch }) {
   const [search, setSearch] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
 
@@ -10,6 +10,7 @@ function Search({ results, setResults, api, user, setFolders }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsSavedSearch(false)
     setSubmittedSearch(search);
 
     fetch(`${api}/search/collectors/${search}`)
@@ -85,6 +86,7 @@ function Search({ results, setResults, api, user, setFolders }) {
   };
 
   function handleTrack(e) {
+    setIsSavedSearch(true)
     fetch(`${api}/users/${user.id}/trackedsearches`, {
       method: "POST",
       headers: {
@@ -107,7 +109,7 @@ function Search({ results, setResults, api, user, setFolders }) {
           onChange={(e) => setSearch(e.target.value)}
         ></input>
       </form>
-      {results.length !== 0 ? (
+      {results.length !== 0 && !isSavedSearch ? (
         <button className="button" onClick={handleTrack}>
           Save this search!
         </button>

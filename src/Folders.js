@@ -7,6 +7,7 @@ function Folders({
   api,
   folders,
   setFolders,
+  setIsSavedSearch,
   grabMain = () => {
     return [];
   },
@@ -18,6 +19,7 @@ function Folders({
   }, []);
 
   function handleClick(e) {
+    setIsSavedSearch(true)
     let folder_id = parseInt(e.target.dataset.id);
 
     fetch(`${api}/folders/${folder_id}/items`)
@@ -38,9 +40,10 @@ function Folders({
   return (
     <div>
       {type === "trackedsearches" ? "Tracked Searches: " : "Folders: "}
+      <br/>
       {folders.map((f) => {
         return (
-          <span key={f.id}>
+          <span className="folder-holder" key={f.id}>
             <span className="button" data-id={f.id} onClick={handleClick}>
               {" "}
               {f.name}

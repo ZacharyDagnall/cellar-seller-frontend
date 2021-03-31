@@ -5,6 +5,7 @@ import ItemsContainer from "./ItemsContainer";
 
 function Home({ user, api, folders, setFolders }) {
   const [results, setResults] = useState([]);
+  const [isSavedSearch, setIsSavedSearch] = useState(false)
 
   return (
     <div>
@@ -14,6 +15,8 @@ function Home({ user, api, folders, setFolders }) {
         results={results}
         user={user}
         setFolders={setFolders}
+        isSavedSearch={isSavedSearch}
+        setIsSavedSearch={setIsSavedSearch}
       />
       <Folders
         type={"trackedsearches"}
@@ -22,6 +25,7 @@ function Home({ user, api, folders, setFolders }) {
         api={api}
         folders={folders}
         setFolders={setFolders}
+        setIsSavedSearch={setIsSavedSearch}
       />
       <ItemsContainer api={api} type={"trackedsearches"} things={results} user={user}/>
     </div>

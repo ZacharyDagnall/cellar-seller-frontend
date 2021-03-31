@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --turquoise: #00efe1;
   --mid-turquoise: #14d5c9;
   --dark-turquoise: #00333f;
@@ -16,7 +16,7 @@
   --color: var(--white);
   --background: var(--black);
   --primary: var(--turquoise);
-}
+} */
 
 body {
   margin: 0;
@@ -27,56 +27,56 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
 main {
   display: grid;
   grid-template-areas: "nav content";
   grid-template-columns: 300px 1fr;
   grid-template-rows: 1fr;
-  height: 100vh;
 }
 
 /* sidebar */
 aside {
   grid-area: nav;
+  position: sticky;
+  top: 0;
+  height: 600px;
+  padding: 2em;
 }
 
-aside h1 {
+/* aside h1 {
   margin: 1rem;
   padding: 0.5rem;
   text-transform: uppercase;
   font-size: 2em;
-}
+} */
 
-aside h2 {
+/* aside h2 {
   margin: 1rem;
   padding: 0.5rem;
   border-bottom: 1px solid #000;
-}
+} */
 
-aside .item {
+/* aside .item {
   padding: 0.5rem 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
-  border: 1px solid transparent;
+  border: 1px solid transparent; 
   transition: background-color 0.3s ease;
   line-height: 1.5rem;
-}
+} */
 
 /* detail */
 section {
   grid-area: content;
   padding: 2rem;
-  background-color: rgb(255, 237, 194);
+  background-color: aqua;
 }
+
 
 .button,
 button {
+  white-space: nowrap;
   padding: 0.5rem;
   margin: 10px 10px 10px 10px;
   border: none;
@@ -91,6 +91,7 @@ button {
   line-height: 2.5;
 }
 
+/*
 .button.active,
 .button:hover,
 button.active,
@@ -119,12 +120,41 @@ button.blue:hover {
   color: var(--white);
   background-color: var(--blue);
   border: 2px solid var(--blue);
-}
+} */
 
 .hidden {
   display: none;
 }
 
-card-deck {
-  grid-template-columns: 70px 70px 70px;
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+.folder-holder {
+  padding: 20px 20px 20px 20px;
+  border-radius: 5000em;
+  background-color: green;
+}
+
+.stat-table {
+  margin-left:auto; 
+  margin-right:auto;
+}
+
+th {
+  padding: 10px;
+}
+
+select {
+  margin: 10px;
+}
+
+.navlink {
+  border-radius: 100em;
+  padding: 1em;
+  min-width: 10em;
+  background-color: pink;
+  color: white;
 }
