@@ -7,10 +7,8 @@ function Folders({
   api,
   folders,
   setFolders,
-  setIsSavedSearch,
-  grabMain = () => {
-    return [];
-  },
+  setIsSavedSearch=(()=>false),
+  grabMain = (() =>[])
 }) {
   useEffect(() => {
     fetch(`${api}/users/${user.id}/${type}`)
@@ -39,10 +37,11 @@ function Folders({
 
   return (
     <div>
-      {type === "trackedsearches" ? "Tracked Searches: " : "Folders: "}
+      <span> {type === "trackedsearches" ? "Tracked Searches: " : "Folders: "} </span>
       <br/>
       {folders.map((f) => {
         return (
+          <span>
           <span className="folder-holder" key={f.id}>
             <span className="button" data-id={f.id} onClick={handleClick}>
               {" "}
@@ -53,6 +52,7 @@ function Folders({
                 ❌
               </button>
             ) : null}
+          </span>
           </span>
         );
       })}

@@ -13,6 +13,7 @@ function ItemsContainer({
   },
 }) {
   const [sortBy, setSortBy] = useState("none");
+  const [filterBy, setFilterBy] = useState("All");
 
   const sortedThings = things.sort((a, b) => {
     switch (sortBy) {
@@ -25,15 +26,33 @@ function ItemsContainer({
     }
   });
 
+  const filteredThings = sortedThings.filter(thing => {
+    switch (filterBy) {
+      case "ebay":
+        return thing.url.includes("ebay");
+      case "collectors":
+        return thing.url.includes("collectors")
+      default:
+        return true;
+      }
+
+
+  })
+
   return (
     <>
-      {sortedThings.length !== 0 ? (
+      {filteredThings.length !== 0 ? (
         <div className="stat-holder">
-          <Stats things={sortedThings} />
+          <Stats things={filteredThings} />
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="none">Sort by... </option>
             <option value="price high">Price High to Low</option>
             <option value="price low">Price Low to High</option>
+          </select>
+          <select value={filterBy} onChange={(e) => setFilterBy(e.target.value)}>
+            <option value="All">Show All Results</option>
+            <option value="ebay">Only eBay Results</option>
+            <option value="collectors">Only Collectors.com Results</option>
           </select>
         </div>
       ) : null}
@@ -48,7 +67,7 @@ function ItemsContainer({
           // width: "100em",
         }}
       >
-        {sortedThings.map((thing) => {
+        {filteredThings.map((thing) => {
           return (
             <Item
               key={thing.id}

@@ -7,6 +7,7 @@ import SavedItems from "./SavedItems";
 import EditProfile from "./EditProfile";
 import Login from "./Login";
 import Signup from "./Signup";
+import ourlogo from "./cellarseller.png"
 
 function App() {
   const API = "http://localhost:3000";
@@ -42,53 +43,58 @@ function App() {
       {user ? (
         <main className="App">
           <Navbar username={user.name} setUser={setUser} />
-          <Switch>
-            <Route exact path="/home">
-              <section>
+          <section>
+          <div className="logo">
+            <img src = {ourlogo} alt="cellar-seller-logo"></img>
+          </div>
+            <Switch>
+              <Route exact path="/home"> 
                 <Home
                   user={user}
                   api={API}
                   folders={folders}
                   setFolders={setFolders}
-                />
-              </section>
-            </Route>
-            <Route exact path="/saved-items">
-              <section>
+                /> 
+              </Route>
+              <Route exact path="/saved-items">
                 <SavedItems
                   user={user}
                   api={API}
                   folders={folders}
                   setFolders={setFolders}
                 />
-              </section>
-            </Route>
-            <Route exact path="/edit-profile">
-              <section>
-                <EditProfile user={user} setUser={setUser} api={API} />
-              </section>
-            </Route>
-            <Route exact path="/*">
-              <Redirect
-                to={{
-                  pathname: "/home",
-                }}
-              />
-            </Route>
-          </Switch>
+              </Route>
+              <Route exact path="/edit-profile"> 
+                  <EditProfile user={user} setUser={setUser} api={API} />
+              </Route>
+              <Route exact path="/*">
+                <Redirect
+                  to={{
+                    pathname: "/home",
+                  }}
+                />
+              </Route>
+            </Switch>
+          </section>
         </main>
       ) : (
-        <>
-          <Switch>
-            <Route exact path="/login">
-              <Login API={API} setUser={setUser} />
-            </Route>
+        <div id="welcome-holder">
+          <span id="welcome-frame">
+          <div className="logo">
+            <img src = {ourlogo} alt="cellar-seller-logo"></img>
+          </div>
+            <br/>
+            <Switch>
+              <Route exact path="/login">
+                <Login API={API} setUser={setUser} />
+              </Route>
 
-            <Route path="/signup">
-              <Signup api={API} setUser={setUser} />
-            </Route>
-          </Switch>
-        </>
+              <Route path="/signup">
+                <Signup api={API} setUser={setUser} />
+              </Route>
+            </Switch>
+          </span>
+        </div>
       )}
     </>
   );

@@ -2,6 +2,8 @@ import React from "react";
 import noimg from "./noimg.png";
 import SaveItemForm from "./SaveItemForm";
 import Card from "react-bootstrap/Card";
+import logoc from "./logo-c.png"
+import logoe from "./logo-e.png"
 
 function Item({ thing, type, setThings, api, user }) {
   function handleDeleteItem(e) {
@@ -21,19 +23,20 @@ function Item({ thing, type, setThings, api, user }) {
         
         // width: "18rem", 
         }}>
+        <Card.Header style={{padding: "0px 0px 0px 0px"}}><img className="icon" src={thing.url.includes("ebay") ? logoe :logoc }/></Card.Header>
         <Card.Body style={{ justifyContent: "center", alignItems: "center"}}>
           <Card.Title>{thing.name}</Card.Title>
           <Card.Text>${thing.price.toFixed(2)}</Card.Text>
           <a 
           style={{display:"flex"}}
           href={thing.url} target="_blank" rel="noreferrer">
-          <Card.Img
-            variant="top"
-            src={thing.img}
-            alt={thing.name}
-            onError={(e) => (e.target.src = noimg)}
-            // style={{display:"flex"}}
-          />
+            <div 
+              style={{background: `url(${thing.img})`, height:"200px", width:"100%", backgroundRepeat: "no-repeat", backgroundSize:"cover"}}
+              variant="top"
+              onError={(e) => {console.log("errored")
+              (e.target.style={background: `url(${noimg})`, height:"200px", width:"100%", backgroundRepeat: "no-repeat", backgroundSize:"cover"})}
+              }
+            />
         </a>
         </Card.Body>
         

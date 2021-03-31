@@ -1,19 +1,9 @@
 import React, { useState } from "react";
 
 function EditProfile({ user, setUser, api }) {
-  const [userInfo, setUserInfo] = useState({
-    name: user.name,
-    password: user.password,
-  });
-
-  console.log(userInfo);
-
-  function handleChange(e) {
-    let key = e.target.name;
-    let val = e.target.value;
-
-    setUserInfo({ ...userInfo, [key]: val });
-  }
+  const [errors, setErrors] = useState([]);
+  const [oldPassword, setOldPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,11 +14,25 @@ function EditProfile({ user, setUser, api }) {
         "content-type": "application/json",
         accept: "application/json",
       },
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify({user, oldPassword, newPassword}),
     })
-      .then((r) => r.json())
-      .then((responseUser) => setUser(responseUser));
-    console.log("changed!!");
+      .then((r) => {
+        console.log("first responder", r)
+        return r.json().then((data) => {
+          if (r.ok) {
+            return data;
+          } else {
+            throw data;
+          }
+        });
+      })
+      .then((response) => {
+        alert("You changed your password! Wow!")
+      })
+      .catch((response) => {
+        console.log("good catch!", response)
+        setErrors(response.errors);
+      })
   }
 
   function deleteAccount() {
@@ -48,23 +52,37 @@ function EditProfile({ user, setUser, api }) {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        Password Change Form
+        <br/>
         <input
-          type="text"
-          name="name"
-          value={userInfo.name}
-          onChange={handleChange}
+          type="password"
+          name="oldPassword"
+          placeholder="Enter current password"
+          value={oldPassword}
+          onChange={e => {setOldPassword(e.target.value)}}
         ></input>
+        <br/>
         <input
           type="password"
           name="password"
-          value={userInfo.password}
-          onChange={handleChange}
+          placeholder="Enter a new password"
+          value={newPassword}
+          onChange={e => {setNewPassword(e.target.value)}}
         ></input>
+        <br/>
         <button type="submit">Change your Credentials!</button>
       </form>
+      {errors.length !== 0 ? (
+        <>
+          {errors.map((er, i) => (
+            <div key={i}>{er}</div>
+          ))}
+        </>
+      ) : null}
       <button id="delete-acct" onClick={deleteAccount}>
-        Delete your account
+        ☠️Delete your account☠️
       </button>
+      
     </>
   );
 }

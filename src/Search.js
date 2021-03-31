@@ -105,12 +105,13 @@ function Search({ results, setResults, api, user, setFolders, isSavedSearch, set
         <input
           type="text"
           name="search"
+          placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         ></input>
       </form>
       {results.length !== 0 && !isSavedSearch ? (
-        <button className="button" onClick={handleTrack}>
+        <button className="item-button" onClick={handleTrack}>
           Save this search!
         </button>
       ) : null}

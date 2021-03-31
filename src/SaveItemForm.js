@@ -61,7 +61,7 @@ function SaveItemForm({ thing, api, user }) {
 
   return (
     <>
-      <button onClick={() => toggleForm(!formShowing)}>Save Item?</button>
+      <button className="item-button" onClick={() => toggleForm(!formShowing)}>Save Item?</button>
 
       <form className={formShowing ? null : "hidden"} onSubmit={handleSaveItem}>
         <select
@@ -89,7 +89,7 @@ function SaveItemForm({ thing, api, user }) {
           value={newFolderName}
           onChange={(e) => setNewFolderName(e.target.value)}
         ></input>
-        <button type="submit">Save to Selected Folder</button>
+        <button className="item-button" type="submit">Save to Selected Folder</button>
       </form>
       <form></form>
     </>

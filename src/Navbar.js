@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
-import styled from "styled-components"
+// import styled from "styled-components"
 
 
 function Navbar({ username, setUser }) {
@@ -12,47 +12,31 @@ function Navbar({ username, setUser }) {
     history.push("/login");
   }
 
-  const NewNavLink = styled(NavLink)`
-  && {width:100em}`
+  // const NewNavLink = styled(NavLink)`
+  // && {width:100em}`
 
   return (
     <aside>
-      <br></br>
-      <h3>Welcome {username}!</h3>
+      <h2>Welcome {username}!</h2>
       
-      <NewNavLink to="/home" className="navlink">
+      <NavLink to="/home" className="navlink">
         Home
-      </NewNavLink>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      </NavLink>
 
-      <NewNavLink to="/saved-items" className="navlink">
+      <NavLink to="/saved-items" className="navlink">
         Saved Items
-      </NewNavLink>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      </NavLink>
 
-      <NewNavLink to="/edit-profile" className="navlink">
+      <NavLink to="/edit-profile" className="navlink">
         Edit Profile
-      </NewNavLink>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      </NavLink>
 
       {/* <span className="navlink" onClick={logout}>
         Log Out
       </span> */}
-      <NewNavLink to="/login" className="navlink" onClick={logout}>
+      <NavLink to="/login" className="navlink" onClick={logout}>
         Logout
-      </NewNavLink>
+      </NavLink>
     </aside>
   );
 }

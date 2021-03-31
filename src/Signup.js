@@ -41,7 +41,7 @@ function Signup({ api, setUser }) {
         setUser(user);
         history.push("/home");
       })
-      .catch((errors) => setErrors(errors));
+      .catch((response) => setErrors(response.errors));
   }
 
   return (
@@ -50,15 +50,19 @@ function Signup({ api, setUser }) {
         <input
           type="text"
           name="name"
+          placeholder="Pick a Username!"
           value={userInfo.name}
           onChange={handleChange}
         ></input>
+        <br/>
         <input
           type="password"
           name="password"
+          placeholder="Choose a Password!"
           value={userInfo.password}
           onChange={handleChange}
         ></input>
+        <br/>
         <button type="submit">Signup!</button>
       </form>
       {errors.length !== 0 ? (

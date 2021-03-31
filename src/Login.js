@@ -41,10 +41,10 @@ function Login({ API, setUser }) {
         setUser(user);
         history.push("/home");
       })
-      .catch((errors) => {
-        console.log("errors console log", errors);
+      .catch((response) => {
+        console.log("errors console log", response.errors);
         setUserInfo({ ...userInfo, password: "" });
-        setErrors(errors);
+        setErrors(response.errors);
       });
   }
 
@@ -54,15 +54,19 @@ function Login({ API, setUser }) {
         <input
           type="text"
           name="name"
+          placeholder="Enter Username"
           value={userInfo.name}
           onChange={handleChange}
         ></input>
+        <br/>
         <input
           type="password"
           name="password"
+          placeholder="Enter Password"
           value={userInfo.password}
           onChange={handleChange}
         ></input>
+        <br/>
         <button type="submit">Login</button>
       </form>
       {errors.length !== 0 ? (

@@ -4,8 +4,9 @@ const Stats = ({ things }) => {
   const prices = things.map((t) => t.price);
 
   return (
-    <table className="stat-table">
-      <tbody>
+    <div className="stat-table">
+      <h4>Collection Stats</h4>
+      <table>
         <tr>
           <th>Number of Items</th>
           <th>Average Price</th>
@@ -20,8 +21,8 @@ const Stats = ({ things }) => {
           <td>${Math.min(...prices).toFixed(2)}</td>
           <td>${Math.max(...prices).toFixed(2)}</td>
         </tr>
-      </tbody>
-    </table>
+      </table>
+    </div>
   );
 };
 
