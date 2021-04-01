@@ -26,30 +26,32 @@ function ItemsContainer({
     }
   });
 
-  const filteredThings = sortedThings.filter(thing => {
+  const filteredThings = sortedThings.filter((thing) => {
     switch (filterBy) {
       case "ebay":
         return thing.url.includes("ebay");
       case "collectors":
-        return thing.url.includes("collectors")
+        return thing.url.includes("collectors");
       default:
         return true;
-      }
-
-
-  })
+    }
+  });
 
   return (
     <>
       {filteredThings.length !== 0 ? (
         <div className="stat-holder">
           <Stats things={filteredThings} />
+          <br />
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="none">Sort by... </option>
             <option value="price high">Price High to Low</option>
             <option value="price low">Price Low to High</option>
           </select>
-          <select value={filterBy} onChange={(e) => setFilterBy(e.target.value)}>
+          <select
+            value={filterBy}
+            onChange={(e) => setFilterBy(e.target.value)}
+          >
             <option value="All">Show All Results</option>
             <option value="ebay">Only eBay Results</option>
             <option value="collectors">Only Collectors.com Results</option>
@@ -61,7 +63,7 @@ function ItemsContainer({
           display: "grid",
           gridTemplateColumns: "350px 350px 350px",
           // gridTemplateRows: "repeat(500px)",
-          margin: "15px 15px 15px 15px"
+          margin: "15px 15px 15px 15px",
           // flexDirection: "row",
           // flexWrap: "wrap",
           // width: "100em",
